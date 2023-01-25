@@ -2,5 +2,5 @@
 client server TCP kahoot
 compilacja servera 
 c++ server.cpp -o [nazwa.pliku]
-#budowanie klientu
+budowanie klientu
 mvn clean install
