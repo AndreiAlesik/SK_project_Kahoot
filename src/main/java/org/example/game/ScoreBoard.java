@@ -18,14 +18,14 @@ public class ScoreBoard implements ActionListener {
     Button toMenu;
 
     public ScoreBoard(GUI window){
-        int width = AppSettings.width;
-        int height = AppSettings.height;
+        int width = Setup.width;
+        int height = Setup.height;
         this.window = window;
 
         window.frame.getContentPane().removeAll();
         window.frame.repaint();
 
-        Map<String, Integer> sorted = sortByValue(AppSettings.rankingMap);
+        Map<String, Integer> sorted = sortByValue(Setup.rankingMap);
 
         scoreBoardTitle = new Text("Tablica wyników", (width / 2) - 250, 75, 500, 100, Color.BLACK, 45);
 

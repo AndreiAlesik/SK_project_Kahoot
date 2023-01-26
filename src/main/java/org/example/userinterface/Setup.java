@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 
-public class AppSettings {
+public class Setup {
     public static final int width = 800;
     public static final int height = 800;
     public static final String title = "Kahoot";

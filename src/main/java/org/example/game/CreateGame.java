@@ -21,14 +21,14 @@ public class CreateGame implements ActionListener {
     Text errorMessage;
 
     public CreateGame(GUI window){
-        int width = AppSettings.width;
-        int height = AppSettings.height;
+        int width = Setup.width;
+        int height = Setup.height;
         this.window = window;
 
         window.frame.getContentPane().removeAll();
         window.frame.repaint();
 
-        AppSettings.questionList = new ArrayList<>();
+        Setup.questionList = new ArrayList<>();
 
 
         gameNameInput = new InputText((width / 4), (height / 7), (width / 2), 50);
@@ -44,7 +44,7 @@ public class CreateGame implements ActionListener {
         nextStepButton = new Button("Dalej", (width / 4), (height / 3) + 300, (width / 2), (height / 12));
         nextStepButton.addActionListener(this);
 
-        errorMessage = new Text("Podałeś błędne dane", 0, (height / 3) + 320 + (height / 12), AppSettings.width, (height/18));
+        errorMessage = new Text("Podałeś błędne dane", 0, (height / 3) + 320 + (height / 12), Setup.width, (height/18));
         errorMessage.setVisible(false);
 
         window.frame.add(gameNameInput);
@@ -66,14 +66,14 @@ public class CreateGame implements ActionListener {
             int quantity = (int) questionsQuantityNumeric.getValue();
             int time = (int) timeNumeric.getValue();
             if(!name.isEmpty() && quantity >= 1 && quantity <= 10 && time >= 10 && time <= 99){
-                AppSettings.gameJSON = new Game(name, quantity, time);
-                AppSettings.answerCreationQuantity = quantity;
-                AppSettings.isAdmin = true;
+                Setup.gameJSON = new Game(name, quantity, time);
+                Setup.answerCreationQuantity = quantity;
+                Setup.isAdmin = true;
                 try {
-                    AppSettings.cl = new ClientConnection(AppSettings.serverAddress, 5050);
-                    AppSettings.cl.sendData("\\create_game\\"+name+"\\quantity\\"+quantity+"\\time\\"+time);
-                    AppSettings.gameId = AppSettings.cl.getData();
-                    AppSettings.questionToEnd = quantity;
+                    Setup.cl = new ClientConnection(Setup.serverAddress, 5050);
+                    Setup.cl.sendData("\\create_game\\"+name+"\\quantity\\"+quantity+"\\time\\"+time);
+                    Setup.gameId = Setup.cl.getData();
+                    Setup.questionToEnd = quantity;
                     new AddQuestion(window, quantity);
                 } catch (IOException ex) {
                     errorMessage.setText("Błąd połączenia");

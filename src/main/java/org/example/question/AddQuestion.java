@@ -20,15 +20,15 @@ public class AddQuestion implements ActionListener, Questionable {
     private int toMake;
 
     public AddQuestion(GUI window, int toMake){
-        int width = AppSettings.width;
-        int height = AppSettings.height;
+        int width = Setup.width;
+        int height = Setup.height;
         this.window = window;
         this.toMake = toMake;
 
         window.frame.getContentPane().removeAll();
         window.frame.repaint();
 
-        questionContentText = new Text("Treść pytania " + (AppSettings.answerCreationQuantity - toMake + 1), 0, height / 14, width, height / 18);
+        questionContentText = new Text("Treść pytania " + (Setup.answerCreationQuantity - toMake + 1), 0, height / 14, width, height / 18);
         questionContentInput = new InputText(width / 4, height / 8, width / 2, 50);
 
         answerText = new Text[4];
@@ -55,7 +55,7 @@ public class AddQuestion implements ActionListener, Questionable {
             window.frame.add(buttonNext);
         }
 
-        errorMessage = new Text("Podałeś błędne dane", 0, (height / 3) + 320 + (height / 12), AppSettings.width, (height/18));
+        errorMessage = new Text("Podałeś błędne dane", 0, (height / 3) + 320 + (height / 12), Setup.width, (height/18));
         errorMessage.setVisible(false);
 
         window.frame.add(questionContentText);
@@ -94,7 +94,7 @@ public class AddQuestion implements ActionListener, Questionable {
                 }
             }
             if(!questionContent.isEmpty() && flagAnswer && flagCheckbox){
-                AppSettings.questionList.add(addQuestion(questionContent, answerContent));
+                Setup.questionList.add(addQuestion(questionContent, answerContent));
                 try {
                     sendAnswers();
                 } catch (IOException ex) {
@@ -122,7 +122,7 @@ public class AddQuestion implements ActionListener, Questionable {
                 }
             }
             if(!questionContent.isEmpty() && flagAnswer && flagCheckbox){
-                AppSettings.questionList.add(addQuestion(questionContent, answerContent));
+                Setup.questionList.add(addQuestion(questionContent, answerContent));
                 try {
                     sendAnswers();
                 } catch (IOException ex) {
@@ -144,6 +144,6 @@ public class AddQuestion implements ActionListener, Questionable {
             else
                 answers += "\\0";
         }
-        AppSettings.cl.sendData("\\send_answers\\id\\"+(AppSettings.gameId+("\\answers"+answers)));
+        Setup.cl.sendData("\\send_answers\\id\\"+(Setup.gameId+("\\answers"+answers)));
     }
 }

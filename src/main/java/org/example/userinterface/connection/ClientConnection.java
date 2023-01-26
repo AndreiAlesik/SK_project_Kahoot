@@ -68,6 +68,7 @@ public class ClientConnection {
             if (len < 1)
                 throw new IOException();
         }
+        System.out.println(result);
         return result;
     }
 }

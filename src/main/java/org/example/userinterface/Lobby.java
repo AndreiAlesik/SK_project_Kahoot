@@ -20,30 +20,30 @@ public class Lobby extends Thread implements ActionListener {
     private Button startGame;
 
     public Lobby(GUI window, Boolean isAdmin){
-        int width = AppSettings.width;
-        int height = AppSettings.height;
+        int width = Setup.width;
+        int height = Setup.height;
         this.window = window;
         this.isAdmin = isAdmin;
 
-        AppSettings.userPanel = new Panel(0, (AppSettings.height / 4), (AppSettings.width / 2), (AppSettings.height / 2) - 50);
+        Setup.userPanel = new Panel(0, (Setup.height / 4), (Setup.width / 2), (Setup.height / 2) - 50);
 
-        if(isAdmin || AppSettings.userNames == null)
-            AppSettings.userNames = new ArrayList<>();
+        if(isAdmin || Setup.userNames == null)
+            Setup.userNames = new ArrayList<>();
 
         window.frame.getContentPane().removeAll();
         window.frame.repaint();
 
-        window.frame.add(AppSettings.userPanel);
+        window.frame.add(Setup.userPanel);
 
-        gameNameText = new Text(AppSettings.gameJSON.getGameName(), 0, (height / 15), width, (height / 18));
+        gameNameText = new Text(Setup.gameJSON.getGameName(), 0, (height / 15), width, (height / 18));
 
         usersListTitleText = new Text("Użytkownicy:", 0, (height / 6), (width / 2), (height / 18));
 
-        gameId = new Text("Id gry: "+AppSettings.gameId, (width / 2) + 20, (height / 6) + 10, (width / 2) - 40, 50, Color.BLACK);
+        gameId = new Text("Id gry: "+ Setup.gameId, (width / 2) + 20, (height / 6) + 10, (width / 2) - 40, 50, Color.BLACK);
 
-        questionQuantity = new Text("Ilość pytań: " + AppSettings.gameJSON.getQuestionQuantity(), (width / 2) + 20, (height / 6) + 70, (width / 2) - 40, 50, Color.BLACK);
+        questionQuantity = new Text("Ilość pytań: " + Setup.gameJSON.getQuestionQuantity(), (width / 2) + 20, (height / 6) + 70, (width / 2) - 40, 50, Color.BLACK);
 
-        questionTime = new Text("Czas na pytanie: " + AppSettings.gameJSON.getQuestionTime(), (width / 2) + 20, (height / 6) + 130, (width / 2) - 40, 50, Color.BLACK);
+        questionTime = new Text("Czas na pytanie: " + Setup.gameJSON.getQuestionTime(), (width / 2) + 20, (height / 6) + 130, (width / 2) - 40, 50, Color.BLACK);
 
         window.frame.add(gameNameText);
         window.frame.add(usersListTitleText);
@@ -57,7 +57,7 @@ public class Lobby extends Thread implements ActionListener {
             window.frame.add(startGame);
 
             try {
-                AppSettings.teacherJSON = AppSettings.gameJSON.addJSON(AppSettings.questionList);
+                Setup.teacherJSON = Setup.gameJSON.addJSON(Setup.questionList);
             }
             catch (Exception e) {
                 System.out.println("Problem z obsługą JSON");
@@ -66,17 +66,17 @@ public class Lobby extends Thread implements ActionListener {
 
         window.reload();
 
-        AppSettings.t1 = new ReadThread(window);
+        Setup.t1 = new ReadThread(window);
 
-        AppSettings.t1.start();
+        Setup.t1.start();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == startGame){
             try {
-                AppSettings.cl.sendData("\\start_game\\id\\"+AppSettings.gameId);
-                AppSettings.isGameStarted = true;
+                Setup.cl.sendData("\\start_game\\id\\"+ Setup.gameId);
+                Setup.isGameStarted = true;
             } catch (IOException ex) {
                 System.out.println("Problem z wysłaniem danych");
             }

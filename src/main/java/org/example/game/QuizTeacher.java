@@ -23,15 +23,15 @@ public class QuizTeacher implements ActionListener {
     public static Boolean [] correctAnswers;
 
     public QuizTeacher(GUI window, int questionToEnd){
-        int width = AppSettings.width;
+        int width = Setup.width;
         this.window = window;
-        AppSettings.questionToEnd--;
+        Setup.questionToEnd--;
 
         window.frame.getContentPane().removeAll();
         window.frame.repaint();
 
         try {
-            questionJSON = AppSettings.teacherJSON.getJSONArray("questions").getJSONObject(AppSettings.answerCreationQuantity - questionToEnd);
+            questionJSON = Setup.teacherJSON.getJSONArray("questions").getJSONObject(Setup.answerCreationQuantity - questionToEnd);
             questionName = String.valueOf(questionJSON.get("question"));
             answersName = new String[4];
             correctAnswers = new Boolean[4];
@@ -57,7 +57,7 @@ public class QuizTeacher implements ActionListener {
 
         nextQuestion.addActionListener(this);
 
-        timer = new Countdown(window, AppSettings.gameJSON.getQuestionTime(), (width / 2) - 30, 600, 60, 60, 40, nextQuestion, answers, correctAnswers);
+        timer = new Countdown(window, Setup.gameJSON.getQuestionTime(), (width / 2) - 30, 600, 60, 60, 40, nextQuestion, answers, correctAnswers);
         timer.start();
 
 
@@ -77,9 +77,9 @@ public class QuizTeacher implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == nextQuestion){
-            if(AppSettings.questionToEnd == 0){
+            if(Setup.questionToEnd == 0){
                 try {
-                    AppSettings.cl.sendData("\\end_game\\id\\" + AppSettings.gameId);
+                    Setup.cl.sendData("\\end_game\\id\\" + Setup.gameId);
                 } catch (IOException ex) {
                     System.out.println("Problem z wysłaniem danych");
                 }
@@ -87,12 +87,12 @@ public class QuizTeacher implements ActionListener {
             }
             else{
                 try {
-                    AppSettings.cl.sendData("\\next_question\\id\\" + AppSettings.gameId);
+                    Setup.cl.sendData("\\next_question\\id\\" + Setup.gameId);
                 } catch (IOException ex) {
                     System.out.println("Problem z wysłaniem danych");
                 }
-                if(AppSettings.questionToEnd < AppSettings.gameJSON.getQuestionQuantity())
-                    new QuizTeacher(window, AppSettings.questionToEnd);
+                if(Setup.questionToEnd < Setup.gameJSON.getQuestionQuantity())
+                    new QuizTeacher(window, Setup.questionToEnd);
             }
         }
     }

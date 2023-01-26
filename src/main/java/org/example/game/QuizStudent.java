@@ -1,7 +1,7 @@
 package org.example.game;
 
 
-import org.example.userinterface.AppSettings;
+import org.example.userinterface.Setup;
 import org.example.userinterface.Button;
 import org.example.userinterface.GUI;
 import org.example.userinterface.Text;
@@ -19,17 +19,17 @@ public class QuizStudent implements ActionListener {
     static boolean isAnswered;
 
     public QuizStudent(GUI window){
-        int width = AppSettings.width;
-        int height = AppSettings.height;
+        int width = Setup.width;
+        int height = Setup.height;
         this.window = window;
         isAnswered = false;
 
         window.frame.getContentPane().removeAll();
         window.frame.repaint();
 
-        questionNumber = new Text("Pytanie " + (AppSettings.currentQuestion + 1), 20, 20, (width) - 40, 60, Color.BLACK, 32);
+        questionNumber = new Text("Pytanie " + (Setup.currentQuestion + 1), 20, 20, (width) - 40, 60, Color.BLACK, 32);
 
-        AppSettings.currentQuestion++;
+        Setup.currentQuestion++;
 
         answer = new Button[4];
 
@@ -64,7 +64,7 @@ public class QuizStudent implements ActionListener {
                     answer[j].removeActionListener(this);
                 }
                 try {
-                    AppSettings.cl.sendData("\\answer_student\\id\\"+AppSettings.gameId+"\\number\\"+ AppSettings.currentQuestion + "\\answer\\" + i);
+                    Setup.cl.sendData("\\answer_student\\id\\"+ Setup.gameId+"\\number\\"+ Setup.currentQuestion + "\\answer\\" + i);
                 } catch (IOException ex) {
                     System.out.println("Problem z wysłaniem danych");
                 }

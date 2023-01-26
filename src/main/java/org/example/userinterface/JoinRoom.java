@@ -21,8 +21,8 @@ public class JoinRoom implements ActionListener {
 
 
     public JoinRoom(GUI window){
-        int width = AppSettings.width;
-        int height = AppSettings.height;
+        int width = Setup.width;
+        int height = Setup.height;
         this.window = window;
 
         window.frame.getContentPane().removeAll();
@@ -37,7 +37,7 @@ public class JoinRoom implements ActionListener {
         nextButton = new Button("Dalej", (width / 4), (height / 3) + 300, (width / 2), (height / 12));
         nextButton.addActionListener(this);
 
-        errorMessage = new Text("Podałeś błędne dane", 0, (height / 3) + 320 + (height / 12), AppSettings.width, (height/18));
+        errorMessage = new Text("Podałeś błędne dane", 0, (height / 3) + 320 + (height / 12), Setup.width, (height/18));
         errorMessage.setVisible(false);
 
         window.frame.add(userNameText);
@@ -57,10 +57,10 @@ public class JoinRoom implements ActionListener {
             String gameID = roomIDInput.getText();
             if(!userName.isEmpty() && !gameID.isEmpty()){
                 try {
-                    AppSettings.cl = new ClientConnection(AppSettings.serverAddress, 5050);
-                    AppSettings.cl.sendData("\\join_game\\id\\"+(gameID+("\\user\\"+userName)));
+                    Setup.cl = new ClientConnection(Setup.serverAddress, 5050);
+                    Setup.cl.sendData("\\join_game\\id\\"+(gameID+("\\user\\"+userName)));
                     for(int i = 0; i < 2; i++){
-                        String answer = AppSettings.cl.getData();
+                        String answer = Setup.cl.getData();
                        if(answer.indexOf("\\error\\id") == 0){
                             errorMessage.setText("Nie istnieje gra o takim ID");
                             errorMessage.setVisible(true);
@@ -82,24 +82,24 @@ public class JoinRoom implements ActionListener {
                             String gameName = answer.substring(14, iQuantity);
                             int gameQuantity = Integer.parseInt(answer.substring(iQuantity + 10, iTime));
                             int time = Integer.parseInt(answer.substring(iTime + 6));
-                            AppSettings.gameId = gameID;
-                            AppSettings.gameJSON = new Game(gameName, gameQuantity, time);
-                            AppSettings.myName = userName;
+                            Setup.gameId = gameID;
+                            Setup.gameJSON = new Game(gameName, gameQuantity, time);
+                            Setup.myName = userName;
                         }
                         else if(answer.indexOf("\\users\\") == 0){
                             int pos;
                             if(answer.length() == 7){
-                                AppSettings.userNames = null;
+                                Setup.userNames = null;
                             }
                             else{
-                                AppSettings.userNames = new ArrayList<>();
+                                Setup.userNames = new ArrayList<>();
                                 answer = answer.substring(7);
                                 while(answer.contains("\\")){
                                     pos = answer.indexOf("\\");
-                                    AppSettings.userNames.add(answer.substring(0,pos));
+                                    Setup.userNames.add(answer.substring(0,pos));
                                     answer = answer.substring(pos + 1);
                                 }
-                                AppSettings.userNames.add(answer);
+                                Setup.userNames.add(answer);
                             }
                             new Lobby(window, false);
                         }

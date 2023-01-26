@@ -38,9 +38,9 @@ public class Countdown{
                 timer.cancel();
                 timer.purge();
                 try {
-                    AppSettings.cl.sendData("\\countdown_end\\id\\"+AppSettings.gameId);
+                    Setup.cl.sendData("\\countdown_end\\id\\"+ Setup.gameId);
                 } catch (IOException e) {
-                    if(AppSettings.rankingMap != null){
+                    if(Setup.rankingMap != null){
                         new ScoreBoard(window);
                     }
                     else{

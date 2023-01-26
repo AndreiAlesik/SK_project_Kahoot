@@ -19,13 +19,13 @@ public class Menu implements ActionListener {
 
     public Menu(GUI window){
         ImageIcon logo = new ImageIcon(Objects.requireNonNull(getClass().getResource("/main/resources/Kahoot_Logo.png")));
-        int width = AppSettings.width;
-        int height = AppSettings.height;
+        int width = Setup.width;
+        int height = Setup.height;
         this.window = window;
 
-        AppSettings.currentQuestion = 0;
-        AppSettings.isAdmin = false;
-        AppSettings.isGameStarted = false;
+        Setup.currentQuestion = 0;
+        Setup.isAdmin = false;
+        Setup.isGameStarted = false;
 
         window.frame.getContentPane().removeAll();
         window.frame.repaint();

@@ -8,9 +8,9 @@ public class GUI {
 
     public GUI(){
         frame = new JFrame();
-        frame.setPreferredSize(new Dimension(AppSettings.width, AppSettings.height));
+        frame.setPreferredSize(new Dimension(Setup.width, Setup.height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle(AppSettings.title);
+        frame.setTitle(Setup.title);
         frame.pack();
         frame.setLayout(null);
         frame.setVisible(true);
