@@ -8,14 +8,14 @@ public class Main {
     public static void main(String[] args) {
 
 
-//        if(args.length < 1){
-//            System.out.println("Podaj adres serwera");
-//        }
-//        else{
-//            AppSettings.serverAddress = args[0];
-        Setup.serverAddress = "192.168.152.128";
+        if(args.length < 1){
+            System.out.println("Podaj adres serwera");
+        }
+        else{
+            Setup.serverAddress = args[0];
+        //Setup.serverAddress = "localhost";
         GUI window = new GUI();
         new Menu(window);
-//        }
+        }
     }
 }

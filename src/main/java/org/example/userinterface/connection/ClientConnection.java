@@ -7,9 +7,11 @@ import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
+import java.util.List;
 
 public class ClientConnection {
-
+    static
     Socket socket;
     InputStream is;
     String address;
@@ -17,6 +19,8 @@ public class ClientConnection {
     Boolean errorFlag;
     int messageSize;
     String nowReaded;
+
+    static String scoreResult;
 
     public ClientConnection(String address, int port) throws IOException {
         this.address = address;
@@ -68,7 +72,15 @@ public class ClientConnection {
             if (len < 1)
                 throw new IOException();
         }
-        System.out.println(result);
+        if(result.contains("score")){
+            try {
+                List<String> tmp= Arrays.asList(result.split("\\\\"));
+                scoreResult=tmp.get(tmp.size()-1);
+            }
+            catch (Exception e){
+                System.out.println(e);
+            }
+        }
         return result;
     }
 }

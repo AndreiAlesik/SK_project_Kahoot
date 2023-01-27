@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.HashMap;
 
+import static org.example.userinterface.connection.ClientConnection.scoreResult;
+
 public class ReadThread extends Thread{
 
     GUI window;
@@ -59,7 +61,7 @@ public class ReadThread extends Thread{
                 }
                 if(command.indexOf("\\end_game\\") == 0){
                     new Menu(window);
-                    JOptionPane.showMessageDialog(null, "Koniec gry", "Kahoot", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Koniec gry\nOtrzymales "+ scoreResult+" punktow", "Kahoot", JOptionPane.PLAIN_MESSAGE);
 //                    AppSettings.cl.closeConnection();
                     this.join();
                 }
