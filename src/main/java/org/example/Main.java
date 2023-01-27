@@ -13,7 +13,6 @@ public class Main {
         }
         else{
             Setup.serverAddress = args[0];
-        //Setup.serverAddress = "localhost";
         GUI window = new GUI();
         new Menu(window);
         }
